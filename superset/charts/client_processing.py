@@ -341,6 +341,8 @@ def apply_client_processing(  # noqa: C901
             df = pd.DataFrame.from_dict(data)
         elif query["result_format"] == ChartDataResultFormat.CSV:
             df = pd.read_csv(StringIO(data))
+        elif query["result_format"] == ChartDataResultFormat.XLSX:
+            df = pd.read_excel(StringIO(data))
 
         # convert all columns to verbose (label) name
         if datasource:
@@ -383,5 +385,11 @@ def apply_client_processing(  # noqa: C901
             processed_df.to_csv(buf, index=show_default_index)
             buf.seek(0)
             query["data"] = buf.getvalue()
+        elif query["result_format"] == ChartDataResultFormat.XLSX:
+            buf = StringIO()
+            processed_df.to_excel(buf, index=show_default_index)
+            buf.seek(0)
+            query["data"] = buf.getvalue()
+
 
     return result

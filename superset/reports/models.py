@@ -80,6 +80,9 @@ class ReportDataFormat(StrEnum):
     TEXT = "TEXT"
     XLSX = "XLSX"
 
+    @classmethod
+    def table_like(cls) -> set["ReportDataFormat"]:
+        return {cls.CSV} | {cls.XLSX}
 
 class ReportCreationMethod(StrEnum):
     CHARTS = "charts"

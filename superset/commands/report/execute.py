@@ -73,7 +73,7 @@ from superset.reports.notifications.exceptions import (
 from superset.tasks.utils import get_executor
 from superset.utils import json
 from superset.utils.core import HeaderDataType, override_user, recipients_string_to_list
-from superset.utils.csv import get_chart_csv_data, get_chart_dataframe
+from superset.utils.chart import get_chart_data, get_chart_dataframe
 from superset.utils.decorators import logs_context, transaction
 from superset.utils.pdf import build_pdf_from_screenshots
 from superset.utils.screenshots import ChartScreenshot, DashboardScreenshot
@@ -379,20 +379,9 @@ class BaseReportState:
 
         return pdf
 
-    def _get_xlsx_data(self) -> bytes:
-        csv_data = self._get_csv_data()
 
-        df = pd.read_csv(BytesIO(csv_data))
-
-        bio = BytesIO()
-
-        # pylint: disable=abstract-class-instantiated
-        with pd.ExcelWriter(bio, engine="openpyxl") as writer:
-            df.to_excel(writer, index=False)
-        return bio.getvalue()
-
-    def _get_csv_data(self) -> bytes:
-        url = self._get_url(result_format=ChartDataResultFormat.CSV)
+    def _get_data(self) -> bytes:
+        url = self._get_url(result_format=self._report_schedule.report_format)
         _, username = get_executor(
             executors=app.config["ALERT_REPORTS_EXECUTORS"],
             model=self._report_schedule,
@@ -404,18 +393,19 @@ class BaseReportState:
             logger.warning("No query context found, taking a screenshot to generate it")
             self._update_query_context()
 
+        data = None
         try:
             logger.info("Getting chart from %s as user %s", url, user.username)
-            csv_data = get_chart_csv_data(chart_url=url, auth_cookies=auth_cookies)
+            data = get_chart_data(chart_url=url, auth_cookies=auth_cookies)
         except SoftTimeLimitExceeded as ex:
             raise ReportScheduleCsvTimeout() from ex
         except Exception as ex:
             raise ReportScheduleCsvFailedError(
                 f"Failed generating csv {str(ex)}"
             ) from ex
-        if not csv_data:
+        if not data:
             raise ReportScheduleCsvFailedError()
-        return csv_data
+        return data
 
     def _get_embedded_data(self) -> pd.DataFrame:
         """
@@ -525,18 +515,11 @@ class BaseReportState:
                     error_text = "Unexpected missing pdf"
             elif (
                 self._report_schedule.chart
-                and self._report_schedule.report_format == ReportDataFormat.CSV
+                and self._report_schedule.report_format in ReportDataFormat.table_like()
             ):
-                data = self._get_csv_data()
-                if not csv_data:
-                    error_text = "Unexpected missing csv file"
-            elif (
-                self._report_schedule.chart
-                and self._report_schedule.report_format == ReportDataFormat.XLSX
-            ):
-                data = self._get_xlsx_data()
+                data = self._get_data()
                 if not data:
-                    error_text = "Unexpected missing csv data for xlsx"
+                    error_text = "Unexpected missing data file"
             if error_text:
                 return NotificationContent(
                     name=self._report_schedule.name,
