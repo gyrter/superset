@@ -24,7 +24,7 @@ import pandas as pd
 from superset.utils import json
 from superset.utils.core import GenericDataType
 
-from chart import get_chart_data
+from superset.utils.chart import get_chart_data
 
 logger = logging.getLogger(__name__)
 
