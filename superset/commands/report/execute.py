@@ -488,23 +488,7 @@ class BaseReportState:
         }
         return log_data
 
-<<<<<<< HEAD:superset/commands/report/execute.py
     def _get_notification_content(self) -> NotificationContent:  # noqa: C901
-=======
-    def _get_xlsx_data(self):
-        csv_data = self._get_csv_data()
-
-        df = pd.read_csv(BytesIO(csv_data))
-        bio = BytesIO()
-
-        # pylint: disable=abstract-class-instantiated
-        with pd.ExcelWriter(bio, engine="openpyxl") as writer:
-            df.to_excel(writer, index=False)
-
-        return bio.getvalue()
-
-    def _get_notification_content(self) -> NotificationContent:
->>>>>>> d8559efabf (rebase, add tests, extract xlsx creation):superset/reports/commands/execute.py
         """
         Gets a notification content, this is composed by a title and a screenshot
 
@@ -535,18 +519,7 @@ class BaseReportState:
             ):
                 data = self._get_data()
                 if not data:
-<<<<<<< HEAD:superset/commands/report/execute.py
                     error_text = "Unexpected missing data file"
-=======
-                    error_text = "Unexpected missing csv file"
-            elif (
-                self._report_schedule.chart
-                and self._report_schedule.report_format == ReportDataFormat.XLSX
-            ):
-                data = self._get_xlsx_data()
-                if not data:
-                    error_text = "Unexpected missing csv data for xlsx"
->>>>>>> d8559efabf (rebase, add tests, extract xlsx creation):superset/reports/commands/execute.py
             if error_text:
                 return NotificationContent(
                     name=self._report_schedule.name,
