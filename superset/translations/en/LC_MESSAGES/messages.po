@@ -8882,6 +8882,9 @@ msgstr ""
 msgid "Send as text"
 msgstr ""
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr ""
 

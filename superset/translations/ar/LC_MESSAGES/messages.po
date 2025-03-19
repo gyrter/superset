@@ -9535,6 +9535,9 @@ msgstr "أرسل بصيغة PNG"
 msgid "Send as text"
 msgstr "إرسال كنص"
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr "إرسال أحداث تصفية النطاق إلى مخططات أخرى"
 

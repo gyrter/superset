@@ -9631,6 +9631,9 @@ msgstr "Verstuur als PNG"
 msgid "Send as text"
 msgstr "Verstuur als tekst"
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr "Stuur filter bereik gebeurtenissen naar andere grafieken"
 

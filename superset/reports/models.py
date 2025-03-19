@@ -78,6 +78,7 @@ class ReportDataFormat(StrEnum):
     PNG = "PNG"
     CSV = "CSV"
     TEXT = "TEXT"
+    XLSX = "XLSX"
 
 
 class ReportCreationMethod(StrEnum):

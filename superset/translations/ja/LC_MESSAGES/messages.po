@@ -9140,6 +9140,9 @@ msgstr "PNGとして送信"
 msgid "Send as text"
 msgstr "テキストとして送信"
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr "範囲フィルター イベントを他のチャートに送信する"
 

@@ -9539,6 +9539,9 @@ msgstr "Pošlji kot PNG"
 msgid "Send as text"
 msgstr "Pošlji kot besedilo"
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr "Pošlji dogodke filtra obdobja na druge grafikone"
 

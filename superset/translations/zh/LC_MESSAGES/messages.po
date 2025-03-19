@@ -9540,6 +9540,9 @@ msgstr "发送PNG"
 msgid "Send as text"
 msgstr "发送文本"
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr "将过滤条件的事件发送到其他图表"
 

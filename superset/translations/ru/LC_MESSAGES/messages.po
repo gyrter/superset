@@ -9559,6 +9559,9 @@ msgstr "Отправить как PNG"
 msgid "Send as text"
 msgstr "Отправить текстом"
 
+msgid "Send as Excel"
+msgstr ""
+
 msgid "Send range filter events to other charts"
 msgstr ""
 

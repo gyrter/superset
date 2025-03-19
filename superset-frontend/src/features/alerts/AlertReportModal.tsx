@@ -187,6 +187,10 @@ const FORMAT_OPTIONS = {
     label: t('Send as text'),
     value: 'TEXT',
   },
+  txt: {
+    label: t('Send as Excel'),
+    value: 'XLSX',
+  },
 };
 
 type FORMAT_OPTIONS_KEY = keyof typeof FORMAT_OPTIONS;
@@ -1735,7 +1739,7 @@ const AlertReportModal: FunctionComponent<AlertReportModalProps> = ({
           </StyledInputContainer>
           <StyledInputContainer
             css={
-              ['PDF', 'TEXT', 'CSV'].includes(reportFormat) && noMarginBottom
+              ['PDF', 'TEXT', 'CSV', 'XLSX'].includes(reportFormat) && noMarginBottom
             }
           >
             {formatOptionEnabled && (
@@ -1757,7 +1761,7 @@ const AlertReportModal: FunctionComponent<AlertReportModalProps> = ({
                   format option */
                         TEXT_BASED_VISUALIZATION_TYPES.includes(chartVizType)
                         ? Object.values(FORMAT_OPTIONS)
-                        : ['pdf', 'png', 'csv'].map(
+                        : ['pdf', 'png', 'csv', 'xlsx'].map(
                             key => FORMAT_OPTIONS[key as FORMAT_OPTIONS_KEY],
                           )
                   }

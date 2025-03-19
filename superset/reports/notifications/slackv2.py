@@ -69,8 +69,8 @@ class SlackV2Notification(SlackMixin, BaseNotification):  # pylint: disable=too-
     def _get_inline_files(
         self,
     ) -> tuple[Union[str, None], Sequence[Union[str, IOBase, bytes]]]:
-        if self._content.csv:
-            return ("csv", [self._content.csv])
+        if self._content.data:
+            return (self._content.data_format, self._content.data)
         if self._content.screenshots:
             return ("png", self._content.screenshots)
         if self._content.pdf:
