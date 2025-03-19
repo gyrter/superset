@@ -200,7 +200,10 @@ class EmailNotification(BaseNotification):  # pylint: disable=too-few-public-met
         return EmailContent(
             body=body,
             images=images,
+<<<<<<< HEAD
             pdf=pdf_data,
+=======
+>>>>>>> d8559efabf (rebase, add tests, extract xlsx creation)
             data=attachment,
             header_data=self._content.header_data,
         )
