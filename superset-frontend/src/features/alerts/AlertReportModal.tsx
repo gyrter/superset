@@ -187,7 +187,7 @@ const FORMAT_OPTIONS = {
     label: t('Send as text'),
     value: 'TEXT',
   },
-  txt: {
+  xlsx: {
     label: t('Send as Excel'),
     value: 'XLSX',
   },

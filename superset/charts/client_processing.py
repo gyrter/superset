@@ -25,7 +25,7 @@ In order to do that, we reproduce the post-processing in Python for these chart 
 """
 
 import logging
-from io import StringIO
+from io import StringIO, BytesIO
 from typing import Any, Optional, TYPE_CHECKING, Union
 
 import numpy as np
@@ -342,7 +342,9 @@ def apply_client_processing(  # noqa: C901
         elif query["result_format"] == ChartDataResultFormat.CSV:
             df = pd.read_csv(StringIO(data))
         elif query["result_format"] == ChartDataResultFormat.XLSX:
-            df = pd.read_excel(StringIO(data))
+            logger.info(dir(data))
+            logger.info(type(data))
+            df = pd.read_excel(BytesIO(data))
 
         # convert all columns to verbose (label) name
         if datasource:
